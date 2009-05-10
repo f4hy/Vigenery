@@ -19,24 +19,22 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ----------------------------------------------------------------------- 
 
-
-
-
 module Main( main ) where
 
 import System
 import System.Console.GetOpt
 import Data.Maybe( fromMaybe )
+import Data.List
+import Data.Ord
 import Control.Monad
 import Numeric
 import Char
 import Vigenere
 
 main = do
-  args <- getArgs
-
+  args <- getArgs               -- get command arguments
   let ( actions, nonOpts, unrec, msgs ) = getOpt' RequireOrder options args
-
+  -- error our if incorrect usage
   when (0 < length unrec) $ do putStrLn "Unrecognized Options"
                                print unrec
                                usage
@@ -46,7 +44,7 @@ main = do
                               usage
                               exitFailure
 
-
+  -- use new options, or defaults if not provided
   opts <- foldl (>>=) (return defaultOptions) actions
   let Options { optInput = input,
                 optOutput = output,
@@ -74,16 +72,16 @@ main = do
   exitWith ExitSuccess
   
 analyze xs = do putStrLn "Best Kasiski guesses"
-                print $ take 15 lengths
+                print $ take 15 lengths -- show the 15 best guesses
                 putStrLn "Indicies Of Coincidence"
                 print $ map (\x -> showFFloat (Just 4) x "") ics
                 putStrLn "The keyword!"
                 print $ thekey
                 where lengths = filter (>1) $ kasiski xs
-                      guess = head lengths
+                      guess = mode $ take 15 lengths
                       thekey = findkey guess xs
                       ics = indiciesOfCoincidence guess xs
-                      
+                      mode = head . maximumBy (comparing length) . group . sort
         
 data Mode = Encrypt | Decrypt | Analyize deriving (Eq)
 

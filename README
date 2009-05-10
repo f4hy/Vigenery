@@ -2,4 +2,16 @@ Vigenery. A program to encrypt/decrypt and break the vigenere cipher.
 
 Author: Brendan Fahy <brendan@f4hy.com>
 
+To build this project you will need GHC (or some other haskell compiler)
+Build with:
+      ghc --make vigenery
 
+Usage : vigenery [-mode] [-i input] [-k key]
+Encryption
+ vigenery -e -i inputfile.txt -k key
+ vigenery -e -i inputfile.txt -k key -o output.txt
+Decryption
+ vigenery -d -i inputfile.txt -k key
+ vigenery -d -i inputfile.txt -k key -o output.txt
+cryptAnalysis
+ vigenery -a -i inputfile.txt

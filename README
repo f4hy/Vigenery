@@ -6,6 +6,8 @@ To build this project you will need GHC (or some other haskell compiler)
 Build with:
       ghc --make vigenery
 
+############
+
 Usage : vigenery [-mode] [-i input] [-k key]
 Encryption
  vigenery -e -i inputfile.txt -k key
@@ -15,3 +17,12 @@ Decryption
  vigenery -d -i inputfile.txt -k key -o output.txt
 cryptAnalysis
  vigenery -a -i inputfile.txt
+
+
+#############
+The vigenere cipher was once known as the unbreakable cipher and was used extensivly during the american civil war!
+
+Now it is very easy to break. To break the cipher this program uses the Kasiki test, and statistical information from finding the Index of Coincidence. 
+
+
+The program works pretty well, but is not very robust and does not handle bad user input well. That is coming in the next version

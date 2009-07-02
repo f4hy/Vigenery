@@ -76,7 +76,7 @@ analyze xs = do putStrLn "Best Kasiski guesses"
                 putStrLn "Indicies Of Coincidence"
                 print $ map (\x -> showFFloat (Just 4) x "") ics
                 putStrLn "The keyword!"
-                print $ thekey
+                print thekey
                 where lengths = filter (>1) $ kasiski xs
                       guess = mode $ take 15 lengths
                       thekey = findkey guess xs
